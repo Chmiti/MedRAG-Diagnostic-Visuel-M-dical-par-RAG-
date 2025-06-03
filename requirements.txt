@@ -1,0 +1,26 @@
+# 🔧 Core IA & Vision
+torch>=2.0.0
+torchvision
+transformers>=4.38.0
+sentence-transformers
+faiss-cpu  # Utilise faiss-gpu si tu as une machine avec CUDA
+
+# 🧠 API OpenAI (si utilisation de GPT-3.5 / GPT-4)
+openai>=1.0.0
+
+# 🖥️ Interface utilisateur
+gradio>=4.0.0
+
+# 🖼️ Traitement d'images et utilitaires
+Pillow
+numpy
+pandas
+scikit-learn
+tqdm
+
+# 🔐 Chargement des clés d'API
+python-dotenv
+
+# 💬 Pour modèles LLM open-source (ex: Mistral, Falcon)
+accelerate
+bitsandbytes
