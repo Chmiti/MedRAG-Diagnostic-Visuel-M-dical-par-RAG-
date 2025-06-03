@@ -1,5 +1,19 @@
+# 📦 Environnements virtuels & fichiers système
 venv/
 __pycache__/
-.env
-.DS_Store
 *.pyc
+.DS_Store
+.env
+
+# 📂 Données lourdes & fichiers générés
+data/images/
+data/index.faiss
+data/stage_2_train_images/
+data/stage_2_test_images/
+data/*.dcm
+*.zip
+*.pt
+*.onnx
+
+# 🔒 Sécurité : ne jamais pusher la clé API
+.env
