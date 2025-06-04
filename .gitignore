@@ -1,19 +1,41 @@
-# 📦 Environnements virtuels & fichiers système
+# === Environnements Python et caches ===
 venv/
 __pycache__/
-*.pyc
-.DS_Store
+*.py[cod]
+
+# === Clés secrètes ===
 .env
 
-# 📂 Données lourdes & fichiers générés
+# === Données lourdes ===
+*.dcm
+*.jpg
+*.jpeg
+*.png
+*.zip
+*.npy
+*.pt
+*.pth
+*.faiss
+*.csv
+
+# === Dossiers contenant des images ou des données ===
 data/images/
-data/index.faiss
+data/test_jpg/
+data/query_temp/
 data/stage_2_train_images/
 data/stage_2_test_images/
-data/*.dcm
-*.zip
-*.pt
-*.onnx
 
-# 🔒 Sécurité : ne jamais pusher la clé API
-.env
+# === Fichiers FAISS ===
+data/index.faiss
+data/index_test.faiss
+
+# === Métadonnées générées automatiquement ===
+data/metadata.json
+data/metadata_test.json
+
+# === Archives et téléversements ===
+*.tar.gz
+*.tar
+*.7z
+*.rar
+data/rsna-pneumonia-detection-challenge.zip

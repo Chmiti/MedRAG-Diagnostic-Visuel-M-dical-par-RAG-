@@ -38,6 +38,22 @@ Un système d’assistance médicale intelligent qui utilise l’intelligence ar
 | PyTorch / Transformers | Frameworks IA utilisés                                |
 
 ---
+📊 Résultats & Limites
+✅ Le système fonctionne de bout en bout : il est capable de retrouver les cas médicaux les plus similaires à une image donnée et de générer une hypothèse clinique à l’aide d’un LLM. Toutes les étapes (prétraitement, vectorisation, indexation, interface, RAG) sont automatisées et reproductibles.
+
+❌ Cependant, les résultats en termes de précision sont faibles. Le système ne parvient pas toujours à détecter correctement une pneumonie, même lorsque les cas similaires sont pertinents.
+
+📉 Pourquoi ça ne fonctionne pas parfaitement ?
+CLIP n’est pas entraîné sur des images médicales → faible sensibilité aux signes cliniques subtils.
+
+Les descriptions utilisées sont trop simplifiées → GPT ne peut pas toujours produire une réponse fiable à partir de contextes limités.
+
+Le système ne fait pas vraiment de classification supervisée → il se base sur des cas proches, sans "apprentissage" médical réel.
+
+🔭 Ouverture : un projet plus robuste
+Ce projet m’a permis de construire un pipeline complet en RAG sur images, mais il m’a aussi montré les limites de l’approche. Pour aller plus loin, je vais maintenant développer un système plus efficace et contrôlable, basé sur des images annotées dans un contexte plus maîtrisé :
+
+➡️ 🎮 GameVision-RAG : diagnostic d'objets dans des images de jeu vidéo (sprites, icônes, scènes) avec fine-tuning de CLIP/BLIP, raisonnement avec LLM, et dataset annoté maison.
 
 ## 🔧 Lancer le projet
 

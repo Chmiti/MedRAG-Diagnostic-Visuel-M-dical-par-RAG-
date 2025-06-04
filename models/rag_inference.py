@@ -18,15 +18,8 @@ model_name = "openai/clip-vit-base-patch32"
 model = CLIPModel.from_pretrained(model_name).to(device)
 processor = CLIPProcessor.from_pretrained(model_name)
 
-# === Chargement de l’index FAISS
-index = faiss.read_index("data/index.faiss")
-
-# === Chargement des métadonnées
-with open("data/metadata.json", "r") as f:
-    metadata = json.load(f)
-
 # === Fonction principale
-def answer_question(image_path, question, k=5):
+def answer_question(image_path, question, k=5, index_path="data/index.faiss", metadata_path="data/metadata.json"):
     # 1. Encode l’image avec CLIP
     image = Image.open(image_path).convert("RGB")
     inputs = processor(images=image, return_tensors="pt").to(device)
@@ -35,9 +28,13 @@ def answer_question(image_path, question, k=5):
         embedding = embedding / np.linalg.norm(embedding)
 
     # 2. Recherche les k plus proches dans FAISS
+    index = faiss.read_index(index_path)
     distances, indices = index.search(np.array([embedding]).astype("float32"), k)
 
-    # 3. Récupère les descriptions des cas proches
+    # 3. Chargement des métadonnées
+    with open(metadata_path, "r") as f:
+        metadata = json.load(f)
+
     all_files = list(metadata.keys())
     context = ""
     for idx in indices[0]:
@@ -45,7 +42,7 @@ def answer_question(image_path, question, k=5):
         description = metadata.get(filename, "Aucun diagnostic trouvé.")
         context += f"- {filename} : {description}\n"
 
-    # 4. Préparation du prompt pour GPT
+    # 4. Prompt strict pour GPT
     prompt = f"""Voici une radiographie et une question clinique :
 
 🖼️ Image : {os.path.basename(image_path)}
@@ -54,10 +51,15 @@ def answer_question(image_path, question, k=5):
 Je t’ai retrouvé {k} cas médicaux similaires :
 {context}
 
-🧠 En te basant uniquement sur ces cas documentés, donne une réponse précise, sans rien inventer.
+🧠 En te basant uniquement sur ces cas documentés, donne une réponse **courte et explicite** :
+
+- "oui, c'est une pneumonie"
+- ou "non, ce n’est pas une pneumonie"
+
+Ne fais **aucune hypothèse** ni explication.
 """
 
-    # 5. Appel à l’API OpenAI (nouvelle syntaxe)
+    # 5. Appel à l’API OpenAI
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -66,9 +68,3 @@ Je t’ai retrouvé {k} cas médicaux similaires :
     )
 
     return response.choices[0].message.content.strip()
-
-answer = answer_question("data/images/250a223e-0d4f-48f9-8698-321d58c1f0c3.jpg", "Est-ce une pneumonie ?")
-print("\n")
-print(answer)
-print("\n")
-
