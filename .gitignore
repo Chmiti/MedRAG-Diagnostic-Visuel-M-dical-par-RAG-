@@ -24,6 +24,7 @@ data/test_jpg/
 data/query_temp/
 data/stage_2_train_images/
 data/stage_2_test_images/
+data/GCP Credits Request Link - RSNA.txt
 
 # === Fichiers FAISS ===
 data/index.faiss
