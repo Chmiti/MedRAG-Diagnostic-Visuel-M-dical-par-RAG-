@@ -10,7 +10,7 @@ __pycache__/
 *.dcm
 *.jpg
 *.jpeg
-*.png
+
 *.zip
 *.npy
 *.pt

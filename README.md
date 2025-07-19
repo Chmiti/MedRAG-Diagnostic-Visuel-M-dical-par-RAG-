@@ -79,7 +79,14 @@ API utilisée : openai.ChatCompletion avec gpt-4
 
 ## Courbes d'entraînement
 
+![Training Plots](training_metrics.png)
+
 ## Exemple de prédiction avec Grad-CAM
+
+![Example](exemple.png)
+![Example](exemple2.png)
+
+
 
 
 
