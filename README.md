@@ -32,6 +32,7 @@ Ce projet a pour but de détecter automatiquement la présence de pneumonie à p
 ```python
 class_weights = torch.tensor([0.65, 1.35]).to(device)
 criterion = nn.CrossEntropyLoss(weight=class_weights)
+```
 
 
 ## Data Augmentation (agressive)
@@ -60,11 +61,12 @@ Objectif prioritaire : Ne rater aucun cas pathologique, quitte à avoir quelques
 
 Rapport médical automatique
 Généré dynamiquement avec un prompt médical :
-
+```
 prompt = f"""
 Tu es un médecin spécialiste. Le modèle IA a détecté une probabilité élevée de {'pneumonie' if label else 'absence de pneumonie'} sur l'image.
 Rédige un rapport médical synthétique, en langage professionnel.
 """
+```
 API utilisée : openai.ChatCompletion avec gpt-4
 
 ## Résultats obtenus
